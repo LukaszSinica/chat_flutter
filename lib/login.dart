@@ -1,4 +1,6 @@
+import 'package:chat/register.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Login extends StatelessWidget {
   const Login({Key? key}) : super(key: key);
@@ -52,6 +54,22 @@ class Login extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(50),
               ),
+            ),
+            SizedBox(height: 68),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Don't have account yet?"),
+                TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const Register()),
+                      );
+                    },
+                    child: Text('Register')
+                )
+              ],
             )
           ],
         ),
