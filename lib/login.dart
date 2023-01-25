@@ -1,6 +1,6 @@
 import 'package:chat/register.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:chat/components/textinput.dart';
 
 class Login extends StatelessWidget {
   const Login({Key? key}) : super(key: key);
@@ -15,7 +15,7 @@ class Login extends StatelessWidget {
             fit: BoxFit.fill,
           )
         ),
-        padding: EdgeInsets.fromLTRB(12, 142, 12, 0),
+        padding: EdgeInsets.fromLTRB(12, 122, 12, 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -25,23 +25,9 @@ class Login extends StatelessWidget {
               size: 72,
             ),
             SizedBox(height: 20),
-            TextField(
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Login',
-                filled: true,
-                fillColor: Colors.white,
-              ),
-            ),
+            TextInput(visibilityOption: false, labelText: "Login"),
             SizedBox(height: 20),
-            TextField(
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Password',
-                filled: true,
-                fillColor: Colors.white,
-              ),
-            ),
+            TextInput(visibilityOption: true, labelText: "Password"),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {},

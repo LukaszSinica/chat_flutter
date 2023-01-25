@@ -1,3 +1,4 @@
+import 'package:chat/components/textinput.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
@@ -8,12 +9,6 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  var _passwordVisible;
-
-  @override
-  void initState() {
-    _passwordVisible = false;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,67 +33,13 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
                 SizedBox(height: 40),
-                TextField(
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    labelText: 'Login',
-                    filled: true,
-                    fillColor: Colors.white,
-                  ),
-                ),
+                TextInput(visibilityOption: false, labelText: "Login"),
                 SizedBox(height: 20),
-                TextField(
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    labelText: 'Email',
-                    filled: true,
-                    fillColor: Colors.white,
-                  ),
-                ),
+                TextInput(visibilityOption: false, labelText: "Email"),
                 SizedBox(height: 20),
-                TextField(
-                  obscureText: !_passwordVisible,
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    filled: true,
-                    fillColor: Colors.white,
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        _passwordVisible ? Icons.visibility : Icons.visibility_off,
-                        color: Theme.of(context).primaryColorDark,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _passwordVisible = !_passwordVisible;
-                        });
-                      },
-                    )
-                  ),
-                  enableSuggestions: false,
-                  autocorrect: false,
-                ),
+                TextInput(visibilityOption: true, labelText: "Password"),
                 SizedBox(height: 20),
-                TextField(
-                  obscureText: !_passwordVisible,
-                  decoration: InputDecoration(
-                    labelText: 'Confirm Password',
-                    filled: true,
-                    fillColor: Colors.white,
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          _passwordVisible ? Icons.visibility : Icons.visibility_off,
-                          color: Theme.of(context).primaryColorDark,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _passwordVisible = !_passwordVisible;
-                          });
-                        },
-                      )
-                  ),
-                  enableSuggestions: false,
-                  autocorrect: false,
-                ),
+                TextInput(visibilityOption: true, labelText: "Confirm Password"),
                 SizedBox(height: 40),
                 ElevatedButton(
                   onPressed: () {},
