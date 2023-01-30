@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:chat/components/textinput.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -9,6 +12,10 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  final loginController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,16 +40,38 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
                 SizedBox(height: 40),
-                TextInput(visibilityOption: false, labelText: "Login"),
+                TextInput(visibilityOption: false, labelText: "Login", controller: loginController),
                 SizedBox(height: 20),
-                TextInput(visibilityOption: false, labelText: "Email"),
+                TextInput(visibilityOption: false, labelText: "Email", controller: emailController),
                 SizedBox(height: 20),
-                TextInput(visibilityOption: true, labelText: "Password"),
+                TextInput(visibilityOption: true, labelText: "Password", controller: passwordController),
                 SizedBox(height: 20),
-                TextInput(visibilityOption: true, labelText: "Confirm Password"),
+                TextInput(visibilityOption: true, labelText: "Confirm Password", controller: confirmPasswordController),
                 SizedBox(height: 40),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    var client = http.Client();
+
+                    try {
+                      var response = await client.post(
+                        Uri.http('10.0.2.2:6060','user/createUser'),
+                        body: {
+                          'login': loginController.text,
+                          'password': passwordController.text,
+                          'email': emailController.text,
+                        });
+                      var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
+                      var uri = Uri.parse(decodedResponse['uri'] as String);
+                      print(await client.get(uri));
+                    }
+                    catch (e) {
+                      print('error');
+                      print(e);
+                    }
+                    finally {
+                      client.close();
+                    }
+                  },
                   child: Text(
                     'Register',
                     style: TextStyle(

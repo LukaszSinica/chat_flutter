@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class TextInput extends StatefulWidget {
   final visibilityOption;
   final labelText;
-  const TextInput({Key? key, required this.visibilityOption, required this.labelText}) : super(key: key);
+  final controller;
+  const TextInput({Key? key, required this.visibilityOption, required this.labelText, required this.controller}) : super(key: key);
 
   @override
   State<TextInput> createState() => _TextInputState();
@@ -20,6 +21,7 @@ class _TextInputState extends State<TextInput> {
   @override
   Widget build(BuildContext context) {
     return widget.visibilityOption ? TextField(
+      controller: widget.controller,
       obscureText: !_passwordVisible,
       decoration: InputDecoration(
           labelText: widget.labelText,
@@ -40,6 +42,7 @@ class _TextInputState extends State<TextInput> {
       enableSuggestions: false,
       autocorrect: false,
     ) : TextField(
+      controller: widget.controller,
       obscureText: false,
       decoration: InputDecoration(
         labelText: widget.labelText,
