@@ -41,8 +41,7 @@ class _RegisterState extends State<Register> {
                 ),
                 SizedBox(height: 40),
                 TextInput(visibilityOption: false, labelText: "Login", controller: loginController),
-                SizedBox(height: 20),
-                TextInput(visibilityOption: false, labelText: "Email", controller: emailController),
+                SizedBox(height: 20), TextInput(visibilityOption: false, labelText: "Email", controller: emailController),
                 SizedBox(height: 20),
                 TextInput(visibilityOption: true, labelText: "Password", controller: passwordController),
                 SizedBox(height: 20),
@@ -58,6 +57,7 @@ class _RegisterState extends State<Register> {
                         body: {
                           'login': loginController.text,
                           'password': passwordController.text,
+                          'repeatedPassword': confirmPasswordController.text,
                           'email': emailController.text,
                         });
                       var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
@@ -65,7 +65,7 @@ class _RegisterState extends State<Register> {
                       print(await client.get(uri));
                     }
                     catch (e) {
-                      print('error');
+                      print('error front');
                       print(e);
                     }
                     finally {

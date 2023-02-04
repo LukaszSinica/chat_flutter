@@ -1,7 +1,7 @@
-/** source/controllers/posts.ts */
 import { Request, Response, NextFunction } from 'express';
 import axios, { AxiosResponse } from 'axios';
-import { Connect, Query } from '../config/mysql';
+import { Connect, Query } from '../../config/mysql';
+import { body, validationResult } from 'express-validator';
 
 const NAMESPACE = "users";
 
@@ -21,21 +21,24 @@ const getAllUsers = (req: Request, res: Response, next: NextFunction) => {
 };
 
 const createUser = (req: Request, res: Response) => {
-    console.log(req.body);
 
     const {login, password, email} = req.body;
-    console.log(login);
+    const errors = validationResult(req);
     let query = "INSERT INTO users(login, password, email) VALUES ('"+login+"','"+password+"','"+email+"')";
-    console.log(query);
-    Connect().then(connection => {
-        Query(connection, query).then(results => {
-        console.log('here');
+    try {
+        validationResult(req).throw();
+        Connect().then(connection => {
+            Query(connection, query).then(results => {
+            console.log('user created');
+            }).catch(error => {
+            console.log(error);
+            })
         }).catch(error => {
-        console.log(error);
-        })
-    }).catch(error => {
-        console.log('error 2');
-    });
+            console.log('error 2');
+        });
+    } catch (err) {
+        res.status(400).json(errors);
+    }
     return 0;
 };
 
